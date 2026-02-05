@@ -15,17 +15,11 @@ if (import.meta.main) {
 
   const favorites_all = await get_all_favs(cookies);
   const tasks : ParsedEntry[] = [];
-  const decoder = new TextDecoder("utf-8");
-  const file = Deno.readFileSync("fav.html");
-  const res = parse_download_page(decoder.decode(file));
-  //exit(0);
   for(const entry of favorites_all) {
     if(filemap.has(entry.gid))
       continue;
     tasks.push(entry);
   }
-  
-
   //todo: execute tasks async
   for(const task of tasks) {
     await download_and_save_entry(task, files_path, cookies);
