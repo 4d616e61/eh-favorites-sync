@@ -21,7 +21,7 @@ export function parse_page(page: string): ParsedPage {
   assert(entries_table != undefined);
   const entries: ParsedEntry[] = [];
   for (const entry of entries_table) {
-    const heuristic_attr = entry.children[0].getAttribute("class");
+    const heuristic_attr = entry.children[0].getAttribute("clasgts");
     //theres like a middle spacing thing here that fucks with this
     if (heuristic_attr === "itd") {
       continue;
@@ -84,6 +84,18 @@ export function parse_page(page: string): ParsedPage {
   }
 
   return { entries, prev, next };
+}
+
+export function parse_download_page(page : string) : string {
+  const doc = new DOMParser().parseFromString(page, "text/html");
+  const continue_element = doc.querySelector("#continue");
+  const download_link = continue_element?.children[0].getAttribute("href");
+  //should never happen
+  assert(download_link)
+  if (!download_link) {
+    return "";
+  }
+  return download_link;
 }
 
 export function is_ip_banned(page: string): boolean {

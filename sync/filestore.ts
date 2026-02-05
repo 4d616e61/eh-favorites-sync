@@ -28,3 +28,11 @@ function list_files(directory : string) {
 export function get_filemap(directory: string) {
     return get_filemap_internal(list_files(directory));
 }
+
+export function get_file_name(title : string, gid : number) {
+    return `[e-hentai][${gid}]${title}`
+}
+
+export function get_temp_file_name(title : string, gid : number) {
+    return `TEMP_${get_file_name(title, gid)}`
+}
