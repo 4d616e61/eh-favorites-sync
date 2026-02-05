@@ -7,7 +7,19 @@ import {
 import { get_all_favs } from "./scrape/scrape.ts";
 import { get_filemap } from "./sync/filestore.ts";
 import { download_and_save_entry } from "./scrape/download.ts";
-import { exit } from "node:process";
+import { parseArgs } from "jsr:@std/cli/parse-args";
+
+const args = parseArgs(Deno.args, {
+  string: ["save-path"],
+  alias: { "save-path": ["savePath"] }, // optional convenience
+});
+
+const savePath = args["save-path"] ?? args.savePath;
+
+if (!savePath) {
+  console.error("Usage: deno run main.ts --save-path <path>");
+  Deno.exit(1);
+}
 
 const CONCURRENCY = 3; // A) at most 3 running
 const START_GAP_MS = 1000; // B) start next no later than 1s after previous start (when a slot is free)
@@ -52,7 +64,7 @@ async function run_async(
 if (import.meta.main) {
   //todo: parse args
   const cookies = config.cookies;
-  const files_path = "./files";
+  const files_path = savePath;
 
   const filemap = get_filemap(files_path);
 
