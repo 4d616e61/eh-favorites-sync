@@ -21,7 +21,7 @@ export function parse_page(page: string): ParsedPage {
   assert(entries_table != undefined);
   const entries: ParsedEntry[] = [];
   for (const entry of entries_table) {
-    const heuristic_attr = entry.children[0].getAttribute("clasgts");
+    const heuristic_attr = entry.children[0].getAttribute("class");
     //theres like a middle spacing thing here that fucks with this
     if (heuristic_attr === "itd") {
       continue;
