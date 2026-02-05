@@ -64,9 +64,10 @@ function pickDownloadFilename(res: Response): string {
   const cdName = filenameFromContentDisposition(
     res.headers.get("content-disposition"),
   );
+  console.log(cdName);
   assert(cdName);
   if (!cdName) {
-    return "";
+    throw new Error("Filename not found")
   }
   return cdName;
 }

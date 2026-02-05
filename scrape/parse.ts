@@ -93,7 +93,7 @@ export function parse_download_page(page : string) : string {
   //should never happen
   assert(download_link)
   if (!download_link) {
-    return "";
+    throw new Error("Download link not found");
   }
   return download_link;
 }
