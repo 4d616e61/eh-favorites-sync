@@ -81,5 +81,7 @@ if (import.meta.main) {
   // for(const task of tasks) {
   //   await download_and_save_entry(task, files_path, cookies);
   // }
-  await run_async(tasks, files_path, cookies);
+  if(tasks.length > 0)
+    await run_async(tasks, files_path, cookies);
+  console.log("All done.");
 }
