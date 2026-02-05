@@ -72,6 +72,7 @@ if (import.meta.main) {
   const tasks: ParsedEntry[] = [];
   for (const entry of favorites_all) {
     if (filemap.has(entry.gid)) {
+      console.log(`Skipping entry ${entry.gid}`);
       continue;
     }
     tasks.push(entry);
